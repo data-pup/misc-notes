@@ -44,7 +44,7 @@ struct DominatorTree {
 }
 ```
 
-### Computing a Subtree
+### Approach
 
 At this point we have two options as far as considering how we would like to
 go about computing and printing the requested subtree. The other options,
@@ -59,4 +59,14 @@ function accepts a parameter containing the root Id.
 On further investigation, this could cause all sorts of strange adjustments,
 and it would probably be much easier to instead focus on setting a start
 for the emitting logic.
+
+### Finding subtree root Id
+
+The next challenge is going to be finding the corresponding `ir::Id` for the
+function we are trying to find the dominator tree of. This will require
+traversing the dominator tree (we might be able to use a `petgraph` traversal)
+and returning the Id of the first item whose name matches the parameter.
+
+Note that this flag is optional, so if it is `None`, we should use the Id of
+the meta-root instead.
 
