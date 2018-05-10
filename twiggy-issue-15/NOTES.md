@@ -30,11 +30,22 @@ The `--function` option should not play a role in that, but should find the
 subtree before we create the output object, and box it up in a trait object
 to return.
 
-```
+```rust
 items.compute_dominator_tree();
 items.compute_retained_sizes();
 ```
 
 After that is done, we should check if a subtree has been requested, then
 traverse the dominator tree and find an item with a matching name if so.
+
+Here is the struct returned by the `dominators` function.
+
+```rust
+struct DominatorTree {
+  tree: BTreeMap<ir::Id, Vec<ir::Id>>,
+  opts: opt::Dominators,
+}
+```
+
+
 
