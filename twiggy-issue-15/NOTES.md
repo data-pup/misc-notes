@@ -35,9 +35,6 @@ items.compute_dominator_tree();
 items.compute_retained_sizes();
 ```
 
-After that is done, we should check if a subtree has been requested, then
-traverse the dominator tree and find an item with a matching name if so.
-
 Here is the struct returned by the `dominators` function.
 
 ```rust
@@ -47,5 +44,19 @@ struct DominatorTree {
 }
 ```
 
+### Computing a Subtree
 
+At this point we have two options as far as considering how we would like to
+go about computing and printing the requested subtree. The other options,
+such as depth/rows, are not used in the `dominators` function, but rather
+when emitting text or json.
+
+The dominator tree is computed by the `petgraph` crate, by the
+`petgraph::algo::simple_fast` function. We might like to use the
+subtree option when computing the dominator tree, because this `simple_fast`
+function accepts a parameter containing the root Id.
+
+On further investigation, this could cause all sorts of strange adjustments,
+and it would probably be much easier to instead focus on setting a start
+for the emitting logic.
 
