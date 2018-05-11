@@ -9,7 +9,7 @@ For reference, the `expand_fconst` function used here is registered here.
 (NOTE: Add link to 'here')
 
 However, most CPUs have faster ways to set registers to zero. For example, on
-x86, one can do xorps %xmm0, %xmm0. Xor'ing a register with itself seems
+x86, one can do `xorps %xmm0, %xmm0`. Xor'ing a register with itself seems
 roundabout, but it turns out to be common enough that CPUs recognize it
 specially, and often optimize it in register renaming rather than actually
 executing it as an instruction.
