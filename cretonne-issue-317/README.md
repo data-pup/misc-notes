@@ -2,7 +2,11 @@ Cretonne currently lowers all floating-point constant instructions by emitting
 integer constants with the desired bit patterns and then moving them into
 floating-point registers. The code that does this is here.
 
+(NOTE: Add link to 'here')
+
 For reference, the `expand_fconst` function used here is registered here.
+
+(NOTE: Add link to 'here')
 
 However, most CPUs have faster ways to set registers to zero. For example, on
 x86, one can do xorps %xmm0, %xmm0. Xor'ing a register with itself seems
