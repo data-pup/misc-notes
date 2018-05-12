@@ -31,6 +31,8 @@ root Id value.
 If the default value of `-r` is 10, how should we sort the output? Sorted
 by shallow size (descending)? Number of calls?
 
+What if the same function calls the same thing twice? etc.
+
 ## To Do
 
 - [ ]  Update the existing test fixtures, test command with/without arguments.
