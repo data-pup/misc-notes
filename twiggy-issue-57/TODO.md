@@ -33,10 +33,24 @@ by shallow size (descending)? Number of calls?
 
 What if the same function calls the same thing twice? etc.
 
+What if the argument is not a function?
+
+Right now, it seems like the path displays the path from the bottom, up to
+the top. Displaying -all- items might be tricky here?
+
+descending/ascending flag?
+flag to see deepest/shallowest call paths?
+
 ## To Do
 
 - [ ]  Update the existing test fixtures, test command with/without arguments.
+- [ ]  Get a list of all the functions (default behavior)
 - [ ]  Write some test fixtures by hand, (yay more web assembly)
        - [ ] Write a small binary that includes two functions, `calledOnce`
              and `calledTwice`. These should have 1 and 2 paths respectively.
+
+## How does the paths functions work?
+
+Before I started changing things, it is worth documenting how the `paths`
+function works. This can be found in `analyze.rs`.
 
