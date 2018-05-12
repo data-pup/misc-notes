@@ -95,3 +95,5 @@ similar to traversing the call paths from the top down, but it is worth noting
 that this is distinct in the sense that if a function is called from two
 places, it is dominated by neither.
 
+(am i trapped in graph theory hell?)
+
