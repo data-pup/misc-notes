@@ -38,8 +38,11 @@ What if the argument is not a function?
 Right now, it seems like the path displays the path from the bottom, up to
 the top. Displaying -all- items might be tricky here?
 
+## Misc
+
 descending/ascending flag?
 flag to see deepest/shallowest call paths?
+finding all leaf nodes?
 
 ## To Do
 
