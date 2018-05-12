@@ -62,3 +62,16 @@ function works. This can be found in `analyze.rs`.
 I wrote a test fixture, and need to verify it, but this should provide a wasm
 module that involves some various call paths to traverse.
 
+UDPATE: Test fixture builds correctly, and seems to be correct, after
+(cursorily) examining the output of the paths command and the top command.
+However, it will be worth revisiting whether or not the number of times that
+a function is called from a specific place actually has any meaning in this
+case. It -may- be worth examining the -number of places- from which a function
+is called.
+
+The next step I believe is to build some test cases that follow the same
+pattern as the existing test cases. From there, I will be able to look into
+how to handle the case of no parameter being given, i.e. printing all of
+the call paths. I also think it may be worth checking into a flag or option
+that would print the call chains from the top down.
+
