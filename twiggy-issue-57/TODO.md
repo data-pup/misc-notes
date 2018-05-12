@@ -26,7 +26,15 @@ subtree work done previously. I.e., we can use the `get_item_by_id` function
 added to `ir::Items` to grab the items to print, otherwise using the meta
 root Id value.
 
+## Questions
+
+If the default value of `-r` is 10, how should we sort the output? Sorted
+by shallow size (descending)? Number of calls?
+
 ## To Do
 
-- [ ]  Update the test fixtures, and add fixtures for with/without arguments.
+- [ ]  Update the existing test fixtures, test command with/without arguments.
+- [ ]  Write some test fixtures by hand, (yay more web assembly)
+       - [ ] Write a small binary that includes two functions, `calledOnce`
+             and `calledTwice`. These should have 1 and 2 paths respectively.
 
