@@ -1,4 +1,4 @@
-# Issue 57 Notes
+#Issue 57 Notes
 
 ## Overview
 
@@ -56,4 +56,9 @@ finding all leaf nodes?
 
 Before I started changing things, it is worth documenting how the `paths`
 function works. This can be found in `analyze.rs`.
+
+### Working Notes
+
+I wrote a test fixture, and need to verify it, but this should provide a wasm
+module that involves some various call paths to traverse.
 
