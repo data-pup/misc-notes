@@ -75,3 +75,14 @@ how to handle the case of no parameter being given, i.e. printing all of
 the call paths. I also think it may be worth checking into a flag or option
 that would print the call chains from the top down.
 
+- [x] Add test expectations for the call paths for specific functions in my new fixture.
+
+---
+
+At this point, I have essentially a copy of the same tests that are run on the
+`wee_alloc` file, which is a nice start on things. I still think that a
+descending flag of some sort would be nice, but before I go around adding
+options, I decided I should (a) add some -failing- tests to show what I want
+to expect to be generated, and (b) read more about the existing options for
+this subcommand.
+
