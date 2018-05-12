@@ -86,3 +86,12 @@ options, I decided I should (a) add some -failing- tests to show what I want
 to expect to be generated, and (b) read more about the existing options for
 this subcommand.
 
+__Why a descending flag?__
+
+This (iiuc) is distinct from the dominators command in a specific way that
+might be worth noting. A dominators tree consists of nodes wherein a node `a`
+is a dominator of `b` if _all_ paths to `b` go through `a`. This can look
+similar to traversing the call paths from the top down, but it is worth noting
+that this is distinct in the sense that if a function is called from two
+places, it is dominated by neither.
+
