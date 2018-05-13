@@ -97,3 +97,8 @@ places, it is dominated by neither.
 
 (am i trapped in graph theory hell?)
 
+---
+
+Coming back to this, I think a good starting point would be to identify all
+of the public functions that are exported from a module.
+
