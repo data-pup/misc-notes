@@ -102,3 +102,9 @@ places, it is dominated by neither.
 Coming back to this, I think a good starting point would be to identify all
 of the public functions that are exported from a module.
 
+(days of reading source pass)
+
+AHHHH what if I compute successors too! `ack` seems to think the predecessors
+tree is only used for paths, so I can force computation of a similar tree
+when we want to go from the top down. Otherwise, that can stay as `None`!!!
+
