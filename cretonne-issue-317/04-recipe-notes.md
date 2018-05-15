@@ -53,3 +53,61 @@ ebb0:
 }
 ```
 
+`binary32-float.cton` and `binary64-float.cton` both contain some examples as
+well, and we can probably get some help with deriving the correct encoding for
+the instruction from these.
+
+### `xorps` Encoding
+
+This is worth understanding in better depth, so let's look at two of the
+places where `xorps` appears in the existing tests. As mentioned above, these
+are in both the 32-bit and 64-bit floating point test files.
+
+Here are two places where this operation is used, and the expected encoding.
+
+__32-bit:__
+
+```
+; asm: xorps %xmm2, %xmm5
+[-,%xmm5]           v36 = bxor v10, v11                     ; bin: 0f 57 ea
+; asm: xorps %xmm5, %xmm2
+[-,%xmm2]           v37 = bxor v11, v10                     ; bin: 0f 57 d5
+```
+
+__64-bit:__
+
+```
+; asm: xorps %xmm10, %xmm5
+[-,%xmm5]           v36 = bxor v10, v11                     ; bin: 41 0f 57 ea
+; asm: xorps %xmm5, %xmm10
+[-,%xmm10]          v37 = bxor v11, v10                     ; bin: 44 0f 57 d5
+```
+
+### Understanding 32-bit xorps
+
+Let's start with the 32-bit encoding.
+
+```
+ASM:    xorps %xmm2 %xmm5
+Hex:    0    f    5    7    e    a
+Binary: 0000 1111 0101 0111 1110 1010
+
+ASM:    xorps %xmm5 %xmm2
+Hex:    0    f    5    7    d    5
+Binary: 0000 1111 0101 0111 1101 0101
+```
+
+Here is the 64-bit encoding.
+
+```
+ASM:    xorps %xmm10, %xmm5
+Hex:    4    1    0    f    5    7    e    a
+Binary: 0100 0001 0000 1111 0101 0111 1110 1010
+
+ASM:    xorps %xmm5, %xmm10
+Hex:    4    4    0    f    5    7    d    5
+Binary: 0100 0100 0000 1111 0101 0111 1101 0101
+```
+
+todo: modrm ? breaking this down further.
+
