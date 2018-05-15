@@ -83,7 +83,7 @@ __64-bit:__
 [-,%xmm10]          v37 = bxor v11, v10                     ; bin: 44 0f 57 d5
 ```
 
-### Understanding 32-bit xorps
+### Breaking down 32-bit xorps instructions:
 
 Let's start with the 32-bit encoding.
 
@@ -97,7 +97,41 @@ Hex:    0    f    5    7    d    5
 Binary: 0000 1111 0101 0111 1101 0101
 ```
 
-Here is the 64-bit encoding.
+The opcode of `xorps` is `0F 57 /r`, so we are already 2/3 of the way there!
+The next step is understanding what the `ea` and `d5` components are. What
+is that `/r` and what does it signify?
+
+This is a complex topic, but read further on 'ModR/M' and `SIB` bytes for
+more information. In short, "/r — Indicates that the ModR/M byte of the
+instruction contains a register operand and an r/m operand."
+
+This byte is structured like so:
+
+```
+  7   6   5   4   3   2   1   0
+  +---+---+---+---+---+---+---+---+
+  |  mod  |    reg    |     rm    |
+  +---+---+---+---+---+---+---+---+
+```
+
+If 'mod' is set to 'b11', then register-direct addressing mode is used
+(in general). So, we can break down the instructions above like so:
+
+```
+xorps %xmm2 %xmm5
+
+  Opcode             mod reg reg
++--------------------+---+---+---+
+| 0000 1111 0101 0111 11  010 101|
++--------------------+---+---+---+
+  0    F    5    7        2   5
+```
+
+Neat! Now, let's look into the 64-bit equivalent of this instruction.
+
+### Breaking down 64-bit xorps instructions:
+
+...
 
 ```
 ASM:    xorps %xmm10, %xmm5
@@ -109,5 +143,15 @@ Hex:    4    4    0    f    5    7    d    5
 Binary: 0100 0100 0000 1111 0101 0111 1101 0101
 ```
 
-todo: modrm ? breaking this down further.
 
+### References
+
+```
+https://www.felixcloutier.com/x86/XORPS.html
+
+https://wiki.osdev.org/X86-64_Instruction_Encoding#ModR.2FM_and_SIB_bytes
+
+https://stackoverflow.com/questions/15017659/how-to-read-the-intel-opcode-notation
+
+https://en.wikipedia.org/wiki/X86_instruction_listings
+```
