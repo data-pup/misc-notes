@@ -25,9 +25,15 @@ Recipe for `UnaryImm` operators, with no declared register inputs, uses its
 output register for the x86 instruction encoding inputs.
 
 `encodings:189` shows encoding rules for integer constants. We should perform
-a similar encoding process for floating point values. In our case, we should
-use an `instp` predicate to check for the value of zero. `is_sign_positive`
-will be helpful here for distinguishing between negative and positive zero.
+a similar encoding process for floating point values.
+
+`lib/codegen/meta/cdsl/predicates.py` defines `instp` predicates. We will need
+to use this on our recipe to check that the immediate value is zero.
+`is_sign_positive` will be helpful here for distinguishing between negative
+and positive zero. This will -probably- be done within the `rust_predicate`
+method?
+
+NOTE: We may need to -add- a new predicate for this?
 
 ### PR Questions ?
 
