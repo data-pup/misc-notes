@@ -35,7 +35,13 @@ method?
 
 NOTE: We may need to -add- a new predicate for this?
 
-### PR Questions ?
+__Adding a new predicate:__
+
+If this should be anything like the `IsSignedInt` or `IsUnsignedInt`
+predicates, we will need to make a class that inherits from `FieldPredicate`,
+which is defined at line 202 of `predicates.py`.
+
+### Questions ?
 
 *  The test case as is, does not fail without any changes, how can I make sure
    that the optimization is working?
@@ -45,4 +51,13 @@ NOTE: We may need to -add- a new predicate for this?
    What should I name this recipe? What should I place in the name?
 *  Should this have a predicate? I am having trouble seeing where the
    `is_sign_positive` function should be placed.
+
+__Answers__
+
+Got some answers regarding the questions above :)
+
+*  Check `filetests/isa/x86/binary64.cton` for example on how to test this :)
+*  `outs` will be an FPR, `ins` will be empty, since it is an immediate value.
+*  I figured this out above, but indeed I will want to make a new subclass of
+   FieldPredicate.
 
