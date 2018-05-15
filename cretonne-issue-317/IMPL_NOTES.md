@@ -24,6 +24,11 @@ There is some more detailed information about testing cretonne in
 Recipe for `UnaryImm` operators, with no declared register inputs, uses its
 output register for the x86 instruction encoding inputs.
 
+`encodings:189` shows encoding rules for integer constants. We should perform
+a similar encoding process for floating point values. In our case, we should
+use an `instp` predicate to check for the value of zero. `is_sign_positive`
+will be helpful here for distinguishing between negative and positive zero.
+
 ### PR Questions ?
 
 *  The test case as is, does not fail without any changes, how can I make sure
