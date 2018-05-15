@@ -61,3 +61,16 @@ Got some answers regarding the questions above :)
 *  I figured this out above, but indeed I will want to make a new subclass of
    FieldPredicate.
 
+---
+
+`FieldPredicate.__init__` args:
+
+```
+:param field: The `FormatField` to be tested.
+:param function: Boolean predicate function to call.
+:param args: Additional arguments for the predicate function.
+```
+
+Note: The `function` should be the name of a function that is found in
+`codegen/src/predicates.rs` :)
+
