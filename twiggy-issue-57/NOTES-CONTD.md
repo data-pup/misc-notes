@@ -27,3 +27,30 @@ existing ones on this binary, and am working on a new `expectations` file that
 will include the expected default output when no argument is given to the
 `paths` subcommand.
 
+__Review Notes:__
+
+Note that this isn't neccessarily a 'call graph', but rather a
+dependency/retaining graph (words are hard!), so the information in this tree
+can include type information, etc.
+
+Type items should be included in the output.
+
+Sort items to print by their shallow size. This is mostly relevant to the
+case wherein no specific arguments are given to the sub-command.
+
+```
+But we want (and right now have) vertices for anything taking up space in the
+binary. This includes data segments and custom sections, as well as each type
+entry. Instead of having edges only where one function calls another function,
+we also have edges from X to Y whenever X requires that Y also be present in
+the binary.
+```
+
+We will also continue to default to the case
+
+__Next Steps:__
+
+[ ] - Remove the `successor` work, this can be done using `neighbors` instead.
+[ ] - Sort items by size if no parameter is given.
+[ ] - Replace the arrow shown when the graph is being descended, so it's not confusing.
+
