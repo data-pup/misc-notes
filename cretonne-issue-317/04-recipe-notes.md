@@ -127,11 +127,30 @@ xorps %xmm2 %xmm5
   0    F    5    7        2   5
 ```
 
+__Zero Constants__
+
+So, if we are trying to assign a zero constant to a floating point register
+using the `xorps` instruction on the same register (xmm0), than we should
+expect an instruction that looks like this:
+
+```
+xorps %xmm0 %xmm0
+
+  Opcode             mod reg reg
++--------------------+---+---+---+
+| 0000 1111 0101 0111 11  000 000|
++--------------------+---+---+---+
+  0    F    5    7
+```
+
+The last two bytes in this instruction would be `1100 0000`, or `0xC0`. This
+would mean that the overall instruction would be encoded as `0x0F57C0`.
+
 Neat! Now, let's look into the 64-bit equivalent of this instruction.
 
 ### Breaking down 64-bit xorps instructions:
 
-...
+Todo ...
 
 ```
 ASM:    xorps %xmm10, %xmm5
@@ -143,6 +162,9 @@ Hex:    4    4    0    f    5    7    d    5
 Binary: 0100 0100 0000 1111 0101 0111 1101 0101
 ```
 
+### Registering the functions
+
+Todo ...
 
 ### References
 
