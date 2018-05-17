@@ -40,8 +40,8 @@ Tasks to complete, based off of the review notes:
 - [x]  Fix typo in the `IsZero.__init__` method.
 - [x]  Add details / remove fixup note from the new recipe comment.
 - [x]  Add emit details for the new recipe, following `fa` as guidance.
-- [ ]  Register the recipe.
-- [ ]  Add an encoding rule that uses the recipe.
+- [x]  Register the recipe.
+- [x]  Add an encoding rule that uses the recipe.
 
 ### Notes
 
@@ -56,4 +56,21 @@ Defining an encoding rule using a recipe:
 See the code for `base.iconst.i32` in `lib/codegen/meta/isa/x86/encodings.py`
 for examples of what this looks like.
 ```
+
+### Fixing the Predicate Logic
+
+Once I was (somewhat) finished with the steps above, I had some different
+errors to contend with to get this working. Namely, the `is_zero` function
+that I added in some of the previous commit would need to change.
+
+Here are the notes that were given on the predicate function:
+
+```
+Oops, I was mistaken when I suggested using is_sign_positive. Cretonne
+represents f32 and f64 immediate values using Ieee32 and Ieee64, which have a
+bits() function that returns the bits as u32/u64. So we can test for positive
+zero by just doing .bits() == 0.
+```
+
+Neat! So this changes things slightly, but shouldn't entail too much work.
 
