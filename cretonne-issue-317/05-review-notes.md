@@ -37,9 +37,23 @@ will only apply to 0.0 immediates, and not for other floating point immediates.
 
 Tasks to complete, based off of the review notes:
 
-- [ ]  Fix typo in the `IsZero.__init__` method.
-- [ ]  Add details / remove fixup note from the new recipe comment.
-- [ ]  Add emit details for the new recipe, following `fa` as guidance.
+- [x]  Fix typo in the `IsZero.__init__` method.
+- [x]  Add details / remove fixup note from the new recipe comment.
+- [x]  Add emit details for the new recipe, following `fa` as guidance.
 - [ ]  Register the recipe.
 - [ ]  Add an encoding rule that uses the recipe.
+
+### Notes
+
+Relevant lines in the codegen crate for registering a recipe include:
+
+*  `meta/base/legalize.py` - Line 78 - Registers the `expand_fconst` function
+*  `src/legalizer/mod.rs` - Line 245 - Defines the `expand_fconst` function
+
+Defining an encoding rule using a recipe:
+
+```
+See the code for `base.iconst.i32` in `lib/codegen/meta/isa/x86/encodings.py`
+for examples of what this looks like.
+```
 

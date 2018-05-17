@@ -17,8 +17,8 @@ in `filetests/isa/x86/binary64.cton`.
 
 As of now this seems to be the general roadmap.
 
-*  [ ] - Register the new recipe.
-*  [ ] - Add test notation.
+*  [x] - Register the new recipe.
+*  [x] - Add test notation.
 *  [ ] - Fix any discovered bugs.
 
 From there, it will be a matter of merging into a new branch, cleaning up the
