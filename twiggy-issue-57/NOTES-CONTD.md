@@ -46,11 +46,9 @@ we also have edges from X to Y whenever X requires that Y also be present in
 the binary.
 ```
 
-We will also continue to default to the case
-
 __Next Steps:__
 
-[ ] - Remove the `successor` work, this can be done using `neighbors` instead.
-[ ] - Sort items by size if no parameter is given.
-[ ] - Replace the arrow shown when the graph is being descended, so it's not confusing.
-
+[x] - Remove the `successor` work, this can be done using `neighbors` instead.
+[x] - Sort items by size if no parameter is given.
+[x] - Replace the arrow shown when the graph is being descended, so it's not confusing.
+[x] - Remove the `calledThrice...` function, recompile the wasm module.
