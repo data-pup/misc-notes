@@ -60,3 +60,34 @@ I also added some new test cases to demonstrate matching items that are
 exports, i.e. `export "foo"`. This includes a case using the default emission,
 as well as emitting the retaining paths in descending order.
 
+### Error Handling Notes
+
+Looking into things a little more, I noticed that the functions in `analyze.rs`
+are actually returning `Result` objects! This is good, and means that we should
+be able to identify the situation where an invalid regex pattern is given.
+
+For reference, the functions look generally like this in terms of signature:
+
+```rust
+pub fn function(items: &ir::Items, opts: &opt::Garbage)
+  -> Result<Box<traits::Emit>, traits::Error>
+{
+  // ...
+}
+```
+
+NOTE: These traits, including the `Error` item, are define in
+`traits/traits.rs` inside of the `twiggy_traits` crate. We might or might
+not need to add a new error type to the `ErrorInner` enum, depending on
+what the `Regex::from_str()` function returns in the event of an error.
+This will need to be looked into.
+
+NOTE: Will it be possible to use the existing `test!` macro to see if something
+explicitly fails? This will also need to be looked into.
+
+### Adding the `regex` crate dependency
+
+Is there a specific version already being used in any of the crates in the
+workspace? If so, use the same version for the sake of consistency. Otherwise,
+we will need to add this (most likely specifically to `twiggy_analyze`).
+
