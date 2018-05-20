@@ -40,7 +40,7 @@ NOTE: How should we go about error handling, in the case of an invalid regex?
       This might also be worth considering for the case when a item name or
       regex is given that does not actually match any items in the binary.
 
-### Progress Notes
+### Initial Steps (Adding Tests)
 
 The first step was adding a new test case. Handling some simple cases will be
 my first concern before I start worrying about some of the specific details
@@ -55,4 +55,8 @@ one of the patterns in our arguments.
 
 This seems convenient because the emitting code will not need to change very
 much, and most of the changes will occur upstream in the `paths` function.
+
+I also added some new test cases to demonstrate matching items that are
+exports, i.e. `export "foo"`. This includes a case using the default emission,
+as well as emitting the retaining paths in descending order.
 
