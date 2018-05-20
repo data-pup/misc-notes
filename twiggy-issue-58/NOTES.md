@@ -1,7 +1,8 @@
 
 ### Todo
 
-- [ ] Set up test cases for the regex functionality
+- [x] Set up test cases for the regex functionality
+  - [ ] Set up further test cases (invalid regex, complete wildcard, etc.)
 - [ ] Add the `regex` crate as a dependency to the `Cargo.toml` file.
 - [ ] Take notes on changes that will be required, post in issue.
 
@@ -38,4 +39,20 @@ NOTE: It might also be nice to try and print groups of items differently
 NOTE: How should we go about error handling, in the case of an invalid regex?
       This might also be worth considering for the case when a item name or
       regex is given that does not actually match any items in the binary.
+
+### Progress Notes
+
+The first step was adding a new test case. Handling some simple cases will be
+my first concern before I start worrying about some of the specific details
+such as invalid regex patterns, missing matches, and so forth.
+
+It does indeed fail! Yay!
+
+On further thought, I also realized something useful about this:
+rather than changing the `items` member as mentioned above, I can set up a
+collection of regex patterns, and simply add any item that matches at least
+one of the patterns in our arguments.
+
+This seems convenient because the emitting code will not need to change very
+much, and most of the changes will occur upstream in the `paths` function.
 
