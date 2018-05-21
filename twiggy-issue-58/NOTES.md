@@ -91,3 +91,5 @@ Is there a specific version already being used in any of the crates in the
 workspace? If so, use the same version for the sake of consistency. Otherwise,
 we will need to add this (most likely specifically to `twiggy_analyze`).
 
+NOTE: This will be fleshed out in more detail in a different document.
+
