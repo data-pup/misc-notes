@@ -14,5 +14,10 @@ To-Do:
 
 ### Predicate Changes
 
-...
+Rather than as implemented, we need the predicate to check that the bits
+are positive zero. The xor optimization that this patch is applying should
+not affect negative zero values because those are distinct, and should not
+be optimized in the same manner.
+
+Previously I had shifted the sign bit off, but that logic should be removed.
 
