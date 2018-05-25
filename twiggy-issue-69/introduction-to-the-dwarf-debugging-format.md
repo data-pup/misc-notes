@@ -142,3 +142,46 @@ DW_TAG_base_type
   DW_AT_encoding = signed
 ```
 
+### Type Composition
+
+A named variable is described by a DIE which has a variety of attributes.
+One attribute will be a reference to a type definition.
+
+An example of a simple DIE describing an integer variable is shown below. For
+now, skipping some of the information that is usually contained in a DIE
+describing a variable.
+
+```
+<1>: DW_TAG_base_type
+       DW_AT_name = int
+       DW_AT_byte_size = 4
+       DW_AT_encoding = signed
+
+<2>: DW_TAG_variable
+       DW_AT_name = x
+       DW_AT_type = <1>
+```
+
+The base type for `int` (this is the block at `<1>`), described it as a signed
+integer occupying four bytes. The `DW_TAG_variable` DIE for `x` provides its
+name and type attribute.
+
+NOTE: The DIES are labeled sequenctially in this example,. In actual DWARF
+data, a reference to a DIE is the offset from the start of the compilation
+unit where the DIE can be found.
+
+# Structures, Classes, Unions, and Interfaces
+
+Most languages allow a programmer to group data together into structures. Each
+of the components of the structure generally has a unique name, and may have
+a different type.
+
+While each language has its own terminology, i.e. C++ calls these components
+'members' while Pascal calls them 'fields', the underlying organization can
+be described in DWARF. DWARF uses the C/C++ terminology and has DIEs which
+describe 'struct', 'union', 'class', and 'interface'.
+
+These DIEs generally looks similar to variables, but may include some extra
+information. For example, the 'accessibility' attribute will describe whether
+the member is public, private, or protected.
+
