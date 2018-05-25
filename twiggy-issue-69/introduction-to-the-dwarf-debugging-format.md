@@ -7,7 +7,7 @@ can be found [here](http://www.dwarfstd.org/doc/Debugging%20using%20DWARF.pdf).
 
 ---
 
-### Introduction
+# Introduction
 
 Unfortunately, debugging programs is a thing that we as programmers are always
 going to need to do. While low-level debuggers exist to step through the
@@ -36,4 +36,109 @@ difficult for programmers, and for the compiler's optimizer.
 The second challenge is finding a method to describe the executable and its
 relationship to the original source with enough detail for a debugger to
 understand, without introducing size or runtime issues.
+
+### The Debugging Process
+
+There are some common operations that a programmer would their debugger to
+perform. The most common would be setting a breakpoint based on a line number
+or function name. When the breakpoint is hit, we might like to display the
+values in different local and global variables, arguments to a function, and
+the call stack, for example.
+
+Other important operations include stepping through a program line by line,
+bypassing a function and substituting the result with a given value.
+The challenge that DWARF aims to solve is making these types of operations
+possible, and easy.
+
+### Debugging Formats
+
+For context it might be good to know some other debugging formats that we can
+compare DWARF to. stabs, COFF, PE-COFF, OMF, IEEE-695, are all examples of
+other similar formats.
+
+### A Brief History of DWARF
+
+DWARF originated with the C compiler and `sdb` debugger in Unix System V
+Release 4 (SVR4), developed by Bell Labs in the mid-1980's. The main
+shortcoming of this original format was that it was not very compact.
+
+DWARF 2 was released in 1990, and attempted to address concerns related to
+size, as well as adding support for C++. Reasons that this format did not
+work out relate to a lack of concerted standardization, to summarize briefly.
+
+DWARF 3 was designed by committee, and aimed to ensure that the DWARF standard
+was readily available, and would avoid divergence caused by multiple sources.
+
+# DWARF Overview
+
+Most modern programming languages are block structured. This means that each
+entity, such as a class or function, is contained within another entity. A
+file in a C program might (and probably does) contain multiple data
+definitions, variables, functions, and so forth.
+
+This creates lexical scopes, where names are only known within the scope that
+they are defined in. To find the definition for a particular symbol, you first
+look in the current enclosing scope, then in successive enclosing scopes until
+the symbol is found. This is related to why compilers represent a program
+internally using a tree.
+
+DWARF follows this model, and is also block structured. Each descriptive entity
+in DWARF (except for the top-level entry, which describes the source file)
+is contained within a parent entry, and may contain children entities.
+
+The DWARF description of a program is a tree structure, similar to a compiler's
+internal tree representation. Each node might represent types, variables, or
+functions.
+
+DWARF is designed to be extensible, so that this process can be used for as
+many languages as possible, rather than being bound to a single language.
+The same applies to the object file format -- while it is commonly associated
+with ELF, DWARF is independent of a specific object file format.
+
+DWARF also does not duplicate information that is already represented in the
+object file, such as identifying processor architecture, or big/little endian
+format.
+
+# Debugging Information Entry (DIE)
+
+### Tags and Attributes
+
+The basic descriptive entity in DWARF is the debugging information entry (DIE).
+A DIE has a tag, which specifies what the DIE describes, and a list of
+attributes which further describe the entity.
+
+As mentioned before, each DIE except for the top-most entity is contained/owned
+by a parent entity, and may have siblings or children DIEs.
+
+Attributes may contain a variety of values: constants (like a function name),
+variables (like the start address for a function), or references to another
+DIE (like the type for a function's return value).
+
+### Types of DIEs
+
+DIEs can be divided into two groups. One being those that describe data, and
+those that describe functions and other executable code.
+
+# Describing Data and Types
+
+DWARF provides `base types` that refer to the primary data types built directly
+on the hardware. Other more complex data types are abstrations build using
+collections or compositions of these base types.
+
+### Base Types
+
+Every programming languages defines some basic scalar data types. C and Java
+define `int` and `double` for example. This often involves a large amount of
+nuance regarding how different languages implement different data types, so
+DWARF base types provide the lowest level mapping between simple data types
+and how they are implemented on the target machine's hardware.
+
+Here is an example of a DIE describing an `int` on a 16-bit processor.
+
+```
+DW_TAG_base_type
+  DW_AT_name = int
+  DW_AT_byte_size = 2
+  DW_AT_encoding = signed
+```
 
