@@ -170,7 +170,7 @@ NOTE: The DIES are labeled sequenctially in this example,. In actual DWARF
 data, a reference to a DIE is the offset from the start of the compilation
 unit where the DIE can be found.
 
-# Structures, Classes, Unions, and Interfaces
+## Structures, Classes, Unions, and Interfaces
 
 Most languages allow a programmer to group data together into structures. Each
 of the components of the structure generally has a unique name, and may have
@@ -184,4 +184,117 @@ describe 'struct', 'union', 'class', and 'interface'.
 These DIEs generally looks similar to variables, but may include some extra
 information. For example, the 'accessibility' attribute will describe whether
 the member is public, private, or protected.
+
+## Variables
+
+Variables are generally pretty simple to represent. They have a name, which
+represent a chunck of memory or a register that contain some kind of value.
+The kind of values that the variable can contain, and restrictions about
+whether or not it can be modified, are described by the type of the variable.
+
+What distinguishes variables is where the value is stored, and its scope.
+
+The scope of a variable determines where the variable can be used, and is,
+usually, related to where the variable is declared. DWARF documents where
+a variable is declared in the source file using a (file, line, column) triplet.
+
+DWARF splits variables into three categories: constants, function parameters,
+and variables. Most variables have a location attriubte that describes where
+the variable is stored. In simple cases, a variable is stored in memory and
+has a fixed address.
+
+Many variables, such as those declared within a C function, are dynamically
+allocated, and locating them requires some (simple) computation. For example,
+a local variable may be allocated on the stack, and locating it may be as
+simple as adding an offset to the a frame pointer.
+
+## Location Expressions
+
+DWARF provides a simple scheme to describe how to locate the data represented
+by a variable. A DWARF location expressions contains a sequence of operations
+that tell a debugger how to locate the data.
+
+DWARF location expressions can contain a sequence of operators and values
+that are evaluated by a simple stack machine. This can be an artitrarily
+complex computation, with a wide range of operations, tests, branches, calls
+to evaluate other location expressions, and accesses to the processors memory
+or registers.
+
+# Describing Code
+
+### Functions and Subprograms
+
+DWARF treats functions that returns values and subroutines that do not as
+variations of the same thing. Both of these are described with a Subprogram
+DIE. This DIE has a name, a source location triplet, and an attribute that
+indicates whether the subprogram is external (i.e. lis it visible outside of
+the current compilation block?).
+
+A subprogram IDE has attribute that give the low and high memory addresses
+that the subprogram occupies, if it is contiguous, or a list of memory ranges
+if it is not contiguous. The low PC address is assumed to be the entry point
+for the routine unless another is explicitly specified.
+
+The value that a function returns is given by the type attribute. Subroutines
+that do not return values do not have this attribute.
+
+A function may define variables that may be local or global.
+
+### Compilation Unit
+
+Most interesting programs consist of more than a single file. Each source
+file that makes up a program is compiled independently, and then linked
+together with system libraries to make up the program. DWARF calls each
+separately compiled source file a compilation unit.
+
+A compilation unit DIE contains general information about the compilation,
+including the directory and name of the source file, the programming language,
+the etc.
+
+The compilation unit DIE is the parent of all of the DIEs that describe the
+compilation unit. Generally, the first DIEs will describe data types, followed
+by global data, then the functions that make up the source file.
+
+### Data Encoding
+
+Conceptually, the DWARF data that describes a program is a tree. Each DIE
+may have a sibling, and several DIEs that it contains. Each of the DIEs has
+a type (its TAG), and a number of attributes.
+
+Each attribute is represented by an attribute type and a value. Unfortunately
+this is not a very dense encoding. Without compression, this would become
+unwieldy. In order to save space, several techniques are used.
+
+The first is to flatten the tree by saving it in prefix order. Each type
+of DIE is defined to either have children or not. If the DIE cannot have
+any children, the the next DIE is its sibling. If the DIE can have children,
+then the next DIE is its first child. The remaining children are represented
+as siblings of the first child. This means that links to the sibling or child
+DIEs can be eliminated.
+
+A second scheme to compress the data is to use abbreviations. Although DWARF
+allows for great flexibility in which DIEs and attributes it may generate,
+most compilers only generate a limited set of DIEs, all of which have the
+same set of attributes.
+
+# Other DWARF Data
+
+### Line Number Table
+
+The DWARF line table contains the mapping between the source lines for the
+executable part of a program, and the memory that contains the code that
+corresponds to that source.
+
+In the simplest form, this can be looked at as a matrix with one column
+containing the memory addresses and another column containing the source
+triple (file, line, column).
+
+If you want to set a breakpoint at a particular line, the table gives you the
+memory address at which to store the breakpoint instruction. Conversely, if
+your program has a fault, you can look for the source line that is closest
+to the memory address.
+
+To save space, DWARF keeps this from growing too large by encoding it as a
+sequence of instructions called a line number program. These are interpreted
+by a simple finite state machine to recreate the complete line number table.
 
