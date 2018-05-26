@@ -298,3 +298,56 @@ To save space, DWARF keeps this from growing too large by encoding it as a
 sequence of instructions called a line number program. These are interpreted
 by a simple finite state machine to recreate the complete line number table.
 
+(This is an interesting topic, but I will consider it out of scope for now.)
+
+### Macro Information
+
+Most debuggers have a very difficult time displaying code with macros.
+
+DWARF includes the description of the macros defined in the program. This
+is rudimentary information, but can be used by a debugger to display the values
+for a macro, or possibly translate the macro into the corresponding source
+language.
+
+### Call Frame Information
+
+Every processor has a certain way of calling functions and passing arguments,
+usually defined in the ABI. The DWARF Call Frame Information (CFI) provides
+the debugger with enough information about how a function is called so that
+it can locate each of the arguments to the function, locate the current
+call frame, and locate the call frame for the calling fuction.
+
+# ELF Sections
+
+While DWARF is defined in a way that allows it to be used with any object
+file format, it is most often used with ELF. Each of the different kinds of
+DWARF data are stored in their own section.
+
+The names of these section all start with ".debug\_". For improved efficiency,
+most references to DWARF data use an offset from the start of the data for
+the current compilation.
+
+This avoid the need to relocate the debugging data, which speeds up program
+loading and debugging. The ELF sections and their contents are:
+
+`.debug_abbrev` : Abbreviations used in `.debug_info`
+`.debug_arranges` : A mapping between memory addresses and compilation
+`.debug_frame` : Call Frame Information
+`.debug_info` : The core DWARF data, containing DIEs
+`.debug_line` : Line number program
+`.debug_loc` : Macro descriptions
+`.debug_macinfo` : A lookup table for global objects and functions
+`.debug_pubnames` : A lookup table for global objects and functions
+`.debug_pubtypes` : A lookup table for global types
+`.debug_ranges` : Address ranges references by DIEs
+`.debug_str` : String table used by `.debug_info`
+
+# Summary
+
+In short, a program is described as a tree with nodes representing various
+functions, data and types in the source, in a compact language and target
+indepedent fashion.
+
+The line table provides the mapping between the executable instructions and
+the source that generated them. The CFI describes how to unwind the stack.
+
