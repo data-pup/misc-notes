@@ -64,3 +64,17 @@ for vendoring scripts.
 
 `lib/codegen/meta/srcgen.py` -> `lib/codegen/src/srcgen.rs`
 
+__Day 00 Work Notes__
+
+My first steps for this work were to add some initial scaffolding with drafts
+of each class/method in the original file. Some of the methods seemed like
+they might require some more nuance, or complex types that I wanted to
+wait on, so I used the `unimplemented!` macro for these.
+
+I am still a little hazy on how the plumbing for this is going to work, and
+also noticed that one of the methods in the original file are using a keyword
+that is reserved in Rust. So, any places that this method is referenced will
+need to be edited. I am also a little concerned about how this code can
+be effectively tested. That will be my first point of order to take care of
+tomorrow.
+
