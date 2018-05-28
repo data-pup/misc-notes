@@ -36,3 +36,31 @@ level, emitting comments, etc.
 *  class `Match`
   *  `arm(self, name, fields, body)`
 
+### `build.rs` Overview
+
+The next step is understanding how the `build.rs` file works, so I can replace
+the existing Python implementation of this file with a new Rust version,
+after figuring out where the file should go, and make sure that all of the
+plumbing is working correctly.
+
+*  `main` - This program expects a specific environment:
+    *  `OUT_DIR` - Directory where generated files should be placed.
+    *  `TARGET` - Target triple provided by Cargo.
+    *  `CRETONNE_TARGETS` (Optional) -  A setting for conditional compilation
+        of isa targets. Possible values can be "native" or known isa targets.
+*  `enum ISA` - This represents known ISA targets.
+
+`build.rs::main` is in effect checking the environment and running the
+following shell command from within `lib/codegen`:
+
+```sh
+python -B build.py --out-dir $OUT_DIR
+```
+
+NOTE: The `-B` flag is used to disable `.pyc` files, which cause problems
+for vendoring scripts.
+
+### Replacing `srcgen`
+
+`lib/codegen/meta/srcgen.py` -> `lib/codegen/src/srcgen.rs`
+
