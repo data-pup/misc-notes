@@ -57,3 +57,18 @@ error: linking with `cc` failed: exit code: 1
 error: aborting due to previous error
 ```
 
+### Understanding the `Parse` Trait
+
+The `parser/parser.rs` file exposes a `Parse` trait. This trait is used for
+parsing things into an `ir::Items` collection. This includes two methods,
+and a type, that will help with this process.
+
+`ItemsExtra` is a type that represents extra data needed to parse a given
+type's items. `EdgesExtra` is similar, but is used to represent extra data
+for parsing edges.
+
+`parse_items` is used to parse `Self` (i.e., the object) into
+some `Item` objects, which are then added to an `ItemsBuilder`. The
+`parse_edges` method must be called __after__ we have already parse the
+items.
+
