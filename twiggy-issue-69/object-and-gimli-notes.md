@@ -34,5 +34,42 @@ a little further into what an object file is.
 
 ## Object Files
 
-...
+An object file is used to store object data and executable code. These are
+divided into separate sections that contain different kinds of data, such
+as: Headers containing descriptive information, code segments containing
+executable code, data segments containing static variables, dynamic linking
+information, and so forth.
+
+We are specifically concerned with ELF, so let's read more about that
+specifically!
+
+### ELF (A Very Brief Overview)
+
+ELF (Executable and Linkable Format) is a standard file format used to
+represent executable files, object code, and shared libraries, among other
+things. It is the standard binary file format for Unix systems using x86
+processors.
+
+If you would like to read more about ELF files, you can find a man page
+on this by running this command:
+
+```
+man 5 elf
+```
+
+An executable ELF file consists of an ELF header, followed by a program header
+table and/or a section header table. These two tables describe the rest of
+the items of the file.
+
+An executable or shared object file's program header table is an array of
+structures, each describing a segment or other information used by the system
+to prepare the program for execution. Program headers are only useful for
+executable or shared object files.
+
+A file's section header table is used to locate all of the sections in the
+file.
+
+String table sections hold, well, strings. These represent symbol and section
+names. The symbol table holds information to locate and relocate a program's
+symbolic definitions and references.
 
