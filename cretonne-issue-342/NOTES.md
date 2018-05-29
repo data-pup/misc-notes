@@ -88,6 +88,10 @@ Some details that I want to figure out today regarding this work:
 *  What should the type of dictionary key/values be for the `srcgen::Match.arms` member?
 *  Implementing the `match` method
 
+The `Formatter` class seems to only be referenced in the `gen_types` file
+as far as I can tell at the moment, but I also have not delved especially
+deep looking for that.
+
 The type of the `arms` member is notated as: `OrderedDict[Tuple[Tuple[str, ...], str], OrderedDict[str, None]]`.
 This is a little opaque at first, but should generally correspond to a
 `BTreeMap` in Rust, if I understand correctly. To break down that type a little
@@ -152,4 +156,12 @@ struct Match {
 
 I am not -totally- convinced of this `arms` type yet, but it seems like a
 decent swing at the premise at least for now.
+
+---
+
+Next, I decided to see what happens if I added a `ir/types.rs` file to the
+codegen crate under the `src` directory. Would this cause some sort of
+conflict? At some point when I -am- done with this refactoring work, I am
+going to have to replace the existing file anyhow, so there is definitely an
+interesting question to answer here.
 
