@@ -165,3 +165,13 @@ conflict? At some point when I -am- done with this refactoring work, I am
 going to have to replace the existing file anyhow, so there is definitely an
 interesting question to answer here.
 
+### Answer
+
+Reached out about this, and got an answer back :)
+
+We will eventually have a `gen_types.rs` file, which will be invoked by
+`build.rs`. However, we will have this build a file called something like
+`new_types.rs` etc., so that we can compare the output of this with the
+existing Python implementation. That way, we can be sure that we are happy
+with the replacement before we are done and use this instead.
+
