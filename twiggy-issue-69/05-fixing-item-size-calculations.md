@@ -73,3 +73,19 @@ this attribute might also be an empty null byte!
 
 This information can be found at section 2.15 on page 36.
 
+### Address Attributes
+
+Section 2.17 contains some information regarding addresses, and address ranges.
+Any DIE that describes an entity that has a location in the machine code may
+include one of these attributes. If an entity does not have associated machine
+code, none of these will be specified.
+
+The entities that fall into this category include compilation units, module
+initialization, subroutines, try/catch blocks, labels, etc. These will have
+either:
+
+*  `DW_AT_low_pc` - This describes a single address.
+*  `DW_AT_low_pc` and `DW_AT_high_pc` - This pair describes a contiguous range
+                                        of addresses.
+*  `DW_AT_ranges` - This describes a non-contiguous range of addresses.
+
