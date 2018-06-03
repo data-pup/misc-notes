@@ -95,3 +95,16 @@ Bloaty is a code size profiler that functions similarly to twiggy. I decided
 to review some of the code in this project to learn how it identies the size
 of an entity in a binary.
 
+This is a large code base, so I needed to do some digging before I was able
+to find what I was looking for, but the most pertinent things were found in
+the `dwarf.cc` file. This, as the name suggests, parses the DWARF debugging
+information. There are some helper functions that work directly on the
+input buffer, which are used elsewhere through the file to find different
+attributes and so forth.
+
+Important points worth reviewing further include:
+*  `dwarf.cc::ReadDWARFDebugInfo - Line 1900` - Reads attributes in a debugging
+   information entry. Note that 'DIEs for compilation units, functions, and
+   global variables often have attributes that resolve to addresses.'
+
+
