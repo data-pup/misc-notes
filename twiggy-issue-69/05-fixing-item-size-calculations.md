@@ -89,3 +89,9 @@ either:
                                         of addresses.
 *  `DW_AT_ranges` - This describes a non-contiguous range of addresses.
 
+## Bloaty Notes
+
+Bloaty is a code size profiler that functions similarly to twiggy. I decided
+to review some of the code in this project to learn how it identies the size
+of an entity in a binary.
+
