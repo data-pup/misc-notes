@@ -32,7 +32,7 @@ separate unit.
 A normal or partial compilation unit may be logically incorprated into another
 compilation unit using an imported unit entry.
 
-__Normal/Partial Compilation Unit Entries__
+### Normal/Partial Compilation Unit Entries
 
 A normal compilation unit is represented by a DIE with `DW_TAG_compile_unit`
 tag. A partial compilation unit DIE is tagged with `DW_TAG_partial_unit`.
@@ -91,4 +91,15 @@ worth the overhead of placement in separate type units.
 
 Types that are unlikely to be replicated, such as types in the main source
 file, are also better left in the main compilation unit.
+
+### 3.2.1 Module Entries
+
+A module is represented by a DIE with the `DW_TAG_module` tag. If it has a
+name, it will be included in the `DW_AT_name` attribute. The module entry
+may have either a `DW_AT_low_pc` and `DW_AT_high_pc` pair, or a `DW_AT_ranges`
+attribute, to encode the addresses of associated machine instructions.
+
+### 3.3 Subroutine and Entry Point Entries
+
+...
 
