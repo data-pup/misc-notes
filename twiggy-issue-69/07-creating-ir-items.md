@@ -130,3 +130,11 @@ attribute is an address. Otherwise, it is a size?
 
 C++ is hard.
 
+### Attribute Encoding Notes
+
+`DW_AT_low_pc` - address
+`DW_AT_high_pc` - address, constant
+`DW_AT_ranges` - rnglist
+
+NOTE: You can find a list of attributes by tag in Appendix A.
+
