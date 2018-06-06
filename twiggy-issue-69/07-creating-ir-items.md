@@ -107,3 +107,16 @@ __Misc__
 This is a catch-all for other things in the binary. These are also not given
 any info as far the `ItemKind` member goes.
 
+### Miscellaneous Style Guide Note
+
+At this point there was enough complexity that I believed that it would be
+worth annotating comments with references to the DWARF standard specification.
+How wide should lines consisting of only comments be?
+
+```
+Source lines which are entirely a comment should be limited to 80 characters in
+length (including comment sigils, but excluding indentation) or the maximum
+width of the line (including comment sigils and indentation), whichever is
+smaller.
+```
+
