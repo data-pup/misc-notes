@@ -120,3 +120,13 @@ width of the line (including comment sigils and indentation), whichever is
 smaller.
 ```
 
+### Misc. `bloaty` Notes
+
+`void AddDIE` at `dwarf.cc::1515` includes some of the logic used to find
+the size of an object associated with a given DIE.
+
+`if (high_pc >= low_pc()` <- This could be used to check if the high_pc
+attribute is an address. Otherwise, it is a size?
+
+C++ is hard.
+
