@@ -39,5 +39,6 @@ The logical point to start on augmenting the codegen build process for me
 seemed to be in finding where these environment variables were set, and
 how to add some new files to these targets / out directory variables.
 
-...
+Note: This required doing more research on how Cargo works, which is covered
+elsewhere.
 
