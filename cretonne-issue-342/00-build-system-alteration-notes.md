@@ -33,12 +33,14 @@ In order to do that, we should understand how this script is itself called
 by the build process of the overall `cretonne` crate, since this is a
 subsystem within that build process.
 
-### Cretonne Build System
-
 The logical point to start on augmenting the codegen build process for me
 seemed to be in finding where these environment variables were set, and
 how to add some new files to these targets / out directory variables.
 
 Note: This required doing more research on how Cargo works, which is covered
-elsewhere.
+in the `01-cargo-notes.md` document in this directory.
+
+### Adding Generated Rust Files
+
+...
 
