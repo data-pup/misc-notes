@@ -36,3 +36,49 @@ https://github.com/rustwasm/rust_wasm_template/blob/master/ci/script.sh#L155-L17
 - @fitzgen
 ```
 
+### Template CI Script Example
+
+The shell script section mentioned in the comments above provide an example
+of how to check that the correct version of the `wasm-bindgen` dependency
+has been installed locally within the project.
+
+```sh
+function ensure_wasm_bindgen_installed {
+  local version=$(get_wasm_bindgen_version)
+  local version_string="wasm-bindgen $version"
+
+  if test -x ./bin/wasm-bindgen; then
+    if test "$(./bin/wasm-bindgen --version | xargs)" == "$version_string"; then
+      echo 'Correct version of wasm-bindgen already installed locally.'
+      return
+    fi
+
+    echo "Wrong version installed locally, updating to $version."
+  else
+    echo 'wasm-bindgen not installed locally, installing.'
+  fi
+
+  logged cargo \
+          cargo +nightly install -f wasm-bindgen-cli \
+          --version "$version" \
+          --root "$(pwd)"
+}
+```
+
+What is happening here? There a calls to a few functions that are defined
+elsewhere in the script, so let's summarize the actions that will need to be
+taken.
+
+1.  Creating a string containing the expected version of `wasm_bindgen`, by
+    finding the row defining that dependency in the `Cargo.toml` file.
+2.  Check if `wasm_bindgen` is installed locally by looking for it relatively
+    at `./bin/wasm-bindgen` starting from the project root directory. If it
+    does not exist there, break and install `wasm-bindgen-cli` locally.
+3.  If `wasm_bindgen` _is_ in the `$PATH`, check that the version is correct.
+    Note that there may be multiple versions of this installed, so we should
+    check that _one_ of these versions matches the version specified in the
+    `Cargo.toml` file's dependencies.
+
+The general overview of this logic should look nearly identical within
+`wasm-pack`, but you know, using Rust rather than shell.
+
