@@ -61,3 +61,7 @@ dependency, or add a new checking function altogether?
 The `01-install-process-notes.md` file contains some notes on the
 `wasm-bindgen` installation process.
 
+The `02-dependency-check-notes.md` file contains some notes on parsing through
+the `Cargo.toml` file and identifying the version of `wasm-bindgen` that
+should be installed.
+

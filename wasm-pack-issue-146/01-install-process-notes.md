@@ -1,4 +1,4 @@
-### Step 4 - Installing `wasm-bindgen`
+### Installing `wasm-bindgen` Notes
 
 This step is a step in the `init` sub-command's process. You can find the
 `step_install_wasm_bindgen` function (the prototype of which is shown below)
