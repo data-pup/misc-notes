@@ -1,5 +1,11 @@
 # `wasm-pack` Issue 146 Notes
 
+This folder contains notes on work to solve an issue for `wasm-pack`. Before
+continuing further into the issue description, and notes about the
+implementation of a solution, I will note that I began my work starting
+from this commit hash, in case you would like to follow along:
+`1c50b12b8fa4ca1984c711336a5ae11134682844`.
+
 ### Issue Description
 
 ```
