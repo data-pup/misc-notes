@@ -58,3 +58,6 @@ existing architecture of the project? Where is the `wasm-bindgen` dependency
 installed, and will we need to either augment an existing check for this
 dependency, or add a new checking function altogether?
 
+The `01-install-process-notes.md` file contains some notes on the
+`wasm-bindgen` installation process.
+
