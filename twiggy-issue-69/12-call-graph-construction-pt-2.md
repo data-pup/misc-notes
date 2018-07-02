@@ -1,3 +1,4 @@
+# Call Graph Construction Notes Pt. 2
 
 I spent some more time reading through the DWARF specification, and found
 this useful tidbit in Chapter 3.3.1.3.
@@ -30,4 +31,8 @@ To summarize into a few bullet points relevant to us:
 **NOTE:** I have some editing to do regarding the `DW_AT_entry_pc` attribute.
           This is distinct from the low_pc attribute, and refers to the first
           *executable* instruction. (**UPDATE**: Done.)
+
+### Identifying edges
+
+...
 
