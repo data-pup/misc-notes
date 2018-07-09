@@ -18,14 +18,14 @@ On the bright side, this is getting close to the general structure of output
 that we need. On the downside, there are currently a few issues with this.
 We will need to:
 
-*  Remove the leading 0's from each line.
+*  [x] Remove the leading 0's from each line.
    (Find out why are these being initialized in the first place)
-*  Figure out why multi-line doc comments do not seem to work.
-*  Fix the naming problem.
-*  Fix the numbering system.
-*  Remove placeholder documentation comments.
-*  Fix iterator creation for the special types.
-*  Once special types seem correct, flesh out the rest of the types.
+*  [x] Figure out why multi-line doc comments do not seem to work.
+*  [ ] Fix the naming problem.
+*  [ ] Fix the numbering system.
+*  [ ] Remove placeholder documentation comments.
+*  [ ] Fix iterator creation for the special types.
+*  [ ] Once special types seem correct, flesh out the rest of the types.
 
 For reference, the equivalent flags in the `types.rs` file look like this:
 
@@ -83,7 +83,65 @@ The first step in a situation like this would be to design a test case that
 fails. This will help us isolate the problem, ensure that we have actually
 fixed the issue, and that we don't reintroduce it with other changes later on.
 
+The test I added to `srcgen.rs` looks liked this:
+
+```rust
+#[test]
+  fn fmt_can_add_type_to_lines() {
+  let mut fmt = Formatter::new();
+  fmt.line(&format!(
+    "pub const {}: Type = Type({:#x});",
+    "example",
+    0,
+  ));
+  let expected_lines = vec![
+    "pub const example: Type = Type(0x0);\n",
+  ];
+  assert_eq!(fmt.lines, expected_lines);
+}
+```
+
 **Fixing the Problem**
 
-...
+The fix related to how I was generating the indent string.
+
+```
+fn get_indent(&self) -> String {
+-        format!("{}{:-1$}", " ", self.indent * SHIFTWIDTH)
++        if self.indent == 0 {
++            String::new()
++        } else {
++            format!("{:-1$}", " ", self.indent * SHIFTWIDTH)
++        }
+}
+```
+
+### Fixing multiple line comments.
+
+For some reason, the second line of my comments does not seem to work
+correctly. In the example above, the documentation comments should be two lines
+that say "Hello" and "Documentation" respectively. Instead, the line looks like
+this: (After fixing the leading 0 problem, as shown above.)
+
+```rust
+/// Hello
+pub const IR::TYPES::FLAGTYPE: Type = Type(0x0);
+```
+
+So, what is happening here? To investigate, I added a new test, that looked
+like this:
+
+```rust
+#[test]
+fn fmt_can_add_doc_comments() {
+  let mut fmt = Formatter::new();
+  fmt.doc_comment("documentation\nis\ngood");
+  let expected_lines = vec!["/// documentation\n", "/// is\n", "/// good\n"];
+  assert_eq!(fmt.lines, expected_lines);
+}
+```
+
+This bug related to the fact that the `indent` variable in the multiline
+parsing function was an option. So, in certain cases, this was not evaluating
+the rest of the lines, if there was no indentation.
 
