@@ -62,3 +62,28 @@ in a special file in the `target` directory, alongside where cargo flags are
 set. This isn't especially convenient, but there isn't really a way around
 that.
 
+So at this point I decided to trace through the logic of the `gen_types` file.
+*  `generate`: the public function called by the codegen crate's `build.rs`
+*  `emit_types`: iterates through each type and calls `emit_type`
+*  `emit_type`: adds the types' doc comments and the type declaration itself.
+
+Aside from some miscellaneous things like creating a `Formatter` constructor
+and the iterator logic, the `line` and `doc_comment` methods are the primary
+ways that `gen_types` interacts with the `srcgen` file.
+
+Before I delved into that, I spent some time cleaning up the project and
+making edits to surpress various compiler warnings. Once this was complete,
+I decided I had a good chance to build some new test cases that would explain
+why the 0 was being prepended. It almost certainly has something to do with
+the scheme for generating indentation, and its base case.
+
+**Building a Failing Test**
+
+The first step in a situation like this would be to design a test case that
+fails. This will help us isolate the problem, ensure that we have actually
+fixed the issue, and that we don't reintroduce it with other changes later on.
+
+**Fixing the Problem**
+
+...
+
