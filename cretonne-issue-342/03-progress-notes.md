@@ -21,9 +21,9 @@ We will need to:
 *  [x] Remove the leading 0's from each line.
    (Find out why are these being initialized in the first place)
 *  [x] Figure out why multi-line doc comments do not seem to work.
-*  [ ] Fix the naming problem.
-*  [ ] Fix the numbering system.
-*  [ ] Remove placeholder documentation comments.
+*  [x] Fix the naming problem.
+*  [x] Fix the numbering system.
+*  [x] Remove placeholder documentation comments.
 *  [ ] Fix iterator creation for the special types.
 *  [ ] Once special types seem correct, flesh out the rest of the types.
 
@@ -145,3 +145,29 @@ This bug related to the fact that the `indent` variable in the multiline
 parsing function was an option. So, in certain cases, this was not evaluating
 the rest of the lines, if there was no indentation.
 
+### Fixing Variable Names
+
+At this point my generated file looked like this:
+
+```rust
+/// Hello
+/// Documentation!
+pub const IR::TYPES::FLAGTYPE: Type = Type(0x0);
+/// Hello
+/// Documentation!
+pub const IR::TYPES::FLAGTYPE: Type = Type(0x0);
+```
+
+This problem here is that the name of this variable should not be using the
+full Rust path with `IR::TYPES::` prepended to the name itself. This brings
+up the point that there should be a function for the name itself, without
+the prefix. (At this point, where is that prefixed name needed?)
+
+Ideally the lines here should look like:
+
+```
+pub const IFLAGS: Type = Type(0x0);
+```
+
+NOTE: This is disregarding the documentation comment issue, and the number
+issue, for now.
