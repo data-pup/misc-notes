@@ -66,3 +66,13 @@ Rather than using Python magic, and mutable global state, we will create some
 sort of `SettingsGroup` object explicitly. This will be easier to create in
 Rust, since static variables are not mutable in Rust.
 
+### Adding Settings Classes/Structs
+
+Similar to the manner in which the types were implemented, the settings will
+require a separate file in both the `base` and `cdsl` modules. The first is
+responsible for 'instantiating' the settings, and the `cdsl` file is
+responsible for defining the classes themselves.
+
+The Python implementation here also heavily relies on some class inheritance,
+which can be represented within the Rust code using `enums`.
+
